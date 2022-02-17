@@ -7,26 +7,33 @@ class User {
 		this.books = books
 		this.pets = pets
 	}
-}
 
-const getFullName = (name, lastName) => console.log(`Bienvenido: ${name} ${lastName}`)
-const addPet = (name) => user.pets.push(name)
-const countPets = (item) => item.length
-const addBook = (name, title) => user.books.push({ name: name, title: title })
-const getBookInfo = (items, data) => {
-	let requestItems = []
-	items.forEach((element) => {
-		requestItems.push(element[data])
-	})
-	return requestItems
+	getFullName = () => console.log(`Bienvenido: ${this.name} ${this.lastName}`)
+	addPet = (name) => this.pets.push(name)
+	countPets = () => this.pets.length
+	addBook = (name, title) => this.books.push({ name: name, title: title })
+	getBookInfo = (data) => {
+		let requestItems = []
+		this.books.forEach((e) => {
+			requestItems.push(e[data])
+		})
+		return requestItems
+	}
 }
 
 const user = new User('amilcar', 'barahona', [], [])
 
-getFullName('Amilcar', 'Barahona')
-addPet('cat')
-addBook('Lewis Hamilton', 'La Masacre Inminente')
-addBook('Nikita Crushed', 'El Olvido')
-console.log('Información del usuario...', user)
-console.log(`Autores: ${getBookInfo(user.books, 'name')}`)
-console.log(`Libros: ${getBookInfo(user.books, 'title')}`)
+user.getFullName()
+user.addPet('Cow')
+user.addPet('Cat')
+user.addBook('Lewis Hamilton', 'La Masacre Inminente')
+user.addBook('Nikita Crushed', 'El Olvido')
+const petsQuantity = user.countPets()
+const booksAutors = user.getBookInfo('name')
+const booksTitles = user.getBookInfo('title')
+
+console.log('mascotas del usuario...', user.pets)
+console.log(`cantidad de mascotas... ${petsQuantity}`)
+console.log('libros del usuario...', user.books)
+console.log(`autores de libros... ${booksAutors}`)
+console.log(`titulos de libros... ${booksTitles}`)
