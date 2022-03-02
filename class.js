@@ -7,71 +7,97 @@ class Container {
 		this.nameFile = nameFile
 	}
 
-	createFile = async (item) => {
+	save(item) {
 		try {
-			console.log('archivo creado de forma exitosa...')
-			if (item) {
-				const data = JSON.stringify(item)
-				return await fs.promises.writeFile(`./${this.nameFile}`, data)
-			} else return await fs.promises.open(`./${this.nameFile}`, 'w')
+			const fileRead = fs.readFileSync(`./${this.nameFile}`, 'utf8')
+			const request = JSON.parse(fileRead)
+			item = { ...item, id: request[request.length - 1].id + 1 }
+			request.push(item)
+			console.log('elemento agregado...', item)
+			return fs.writeFileSync(`./${this.nameFile}`, JSON.stringify(request))
 		} catch (error) {
-			console.error(error)
+			const array = []
+			item = { ...item, id: 1 }
+			array.push(item)
+			console.log('archivo creado exitosamente con la data:', item)
+			return fs.writeFileSync(`./${this.nameFile}`, JSON.stringify(array))
 		}
 	}
 
-	checkObject = async () => {
-		return await fs.promises.readFile(`./${this.nameFile}`, 'utf8')
-	}
-
-	saveObject = async (item, id) => {
-		const data = JSON.stringify(item)
+	getById(item) {
 		try {
-			console.log(`objeto asignado al archivo con el id: ${id}`)
-			await fs.promises.writeFile(`./${this.nameFile}`, data)
-		} catch (err) {
-			console.error(err)
+			item = parseInt(item)
+			const fileRead = fs.readFileSync(`./${this.nameFile}`, 'utf8')
+			const request = JSON.parse(fileRead)
+			const index = request.findIndex((search) => {
+				return search.id === item
+			})
+			if (index != -1) {
+				const result = request[index]
+				console.log(`elemento encontrado...`, result)
+				return result
+			} else {
+				console.log(`elemento con id ${item} no se encuentra`)
+				return null
+			}
+		} catch (error) {
+			console.log('archivo no existe...', error)
 		}
 	}
 
-	checkObjectID = async (item) => {
-		let arrayRequest = await fs.promises.readFile(`./${this.nameFile}`, 'utf8')
-		arrayRequest = JSON.parse(arrayRequest)
-		const index = arrayRequest.findIndex((search) => {
-			return search.id === item
-		})
-		if (index != -1) return arrayRequest[index]
-		else return null
+	getAll() {
+		try {
+			const fileRead = fs.readFileSync(`./${this.nameFile}`, 'utf8')
+			const request = JSON.parse(fileRead)
+			console.log('elementos presentes en el archivo...', JSON.parse(fileRead))
+			return request
+		} catch (error) {
+			console.log('el archivo no existe o no existen datos en el archivo...', error)
+			return null
+		}
 	}
 
-	getAll = async () => {
-		let arrayRequest = await fs.promises.readFile(`./${this.nameFile}`, 'utf8')
-		return JSON.parse(arrayRequest)
-	}
-
-	deleteObjectID = async (item) => {
-		if (item) {
-			let arrayRequest = await fs.promises.readFile(`./${this.nameFile}`, 'utf8')
+	deleteById(item) {
+		try {
+			item = parseInt(item)
+			let arrayRequest = fs.readFileSync(`./${this.nameFile}`, 'utf8')
 			arrayRequest = JSON.parse(arrayRequest)
 			const index = arrayRequest.findIndex((search) => {
 				return search.id === item
 			})
-
 			if (index != -1) {
-				let deleteObject = arrayRequest.splice(index, 1)
+				arrayRequest.splice(index, 1)
 				let newArray = [...arrayRequest]
-				const info = {
-					deleteObject: deleteObject,
-					newArray: newArray,
-				}
-				await fs.promises.writeFile(`./${this.nameFile}`, JSON.stringify(newArray))
-				return info
-			} else return null
-		} else return null
+				console.log(`el elemento con el id ${item} fue borrado...`)
+				return fs.writeFileSync(`./${this.nameFile}`, JSON.stringify(newArray))
+			} else {
+				console.log(`el elemento con el id ${item} no fue encontrado...`)
+				return null
+			}
+		} catch (error) {
+			console.log('el archivo no existe...')
+			return error
+		}
 	}
 
-	deleteAll = async (item) => {
-		if (item) return await fs.promises.open(`./${this.nameFile}`, 'w')
+	deleteAll() {
+		try {
+			console.log('elmentos del archivos borrados con exito...')
+			const request = fs.writeFileSync(`./${this.nameFile}`, '')
+			return request
+		} catch (error) {
+			console.log(error)
+			return null
+		}
 	}
 }
+
+const container = new Container(`products.txt`)
+
+container.save({ name: 'hola' })
+//container.getById(2)
+//container.getAll()
+//container.deleteById(3)
+//container.deleteAll()
 
 module.exports = { Container }
