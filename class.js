@@ -92,9 +92,9 @@ class Container {
 	}
 }
 
-const container = new Container(`products.txt`)
+//const container = new Container(`products.txt`)
 
-container.save({ name: 'hola' })
+//container.save({ title: 'Martillo', image: 'https://dummyimage.com/600x400/000/fff' })
 //container.getById(2)
 //container.getAll()
 //container.deleteById(3)
