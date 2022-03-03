@@ -26,7 +26,7 @@ app.get('/productos', (req, res) => {
 
 app.get('/productoRandom', (req, res) => {
 	const requestAll = container.getAll()
-	const lol = Math.floor(Math.random() * (requestAll.length - 1 + 1) + 1)
-	const request = container.getById(lol)
+	const numberRequest = Math.floor(Math.random() * (requestAll.length - 1 + 1) + 1)
+	const request = container.getById(numberRequest)
 	res.json(request)
 })
