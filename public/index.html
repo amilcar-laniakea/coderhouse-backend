@@ -1,0 +1,30 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Formularios de Ingreso</title>
+	</head>
+	<body>
+		<h2>Ingrese el producto deseado:</h2>
+		<form action="/api/products/" method="POST">
+			<br />
+			<span style="min-width: 80px; width: 80px; display: inline-block; margin-bottom: 10px"
+				>Titulo:</span
+			><input type="text" name="title" />
+			<br />
+			<span style="min-width: 80px; width: 80px; display: inline-block; margin-bottom: 10px"
+				>Precio:</span
+			><input type="text" name="price" />
+			<br />
+			<span style="min-width: 80px; width: 80px; display: inline-block; margin-bottom: 10px"
+				>Categoria:</span
+			><input type="text" name="category" />
+			<br />
+			<br />
+			<button>Enviar Peticion</button>
+		</form>
+	</body>
+</html>

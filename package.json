@@ -1,7 +1,7 @@
 {
-	"name": "servicio-basico-express",
+	"name": "service-advanced-express",
 	"version": "1.0.0",
-	"description": "coderhouse-desafio-3",
+	"description": "coderhouse-desafio-4",
 	"main": "index.js",
 	"scripts": {
 		"start:dev": "nodemon server.js",
@@ -14,7 +14,8 @@
 		"url": "git+https://github.com/amilcar-laniakea/coderhouse-backend.git"
 	},
 	"dependencies": {
-		"express": "^4.17.3"
+		"express": "^4.17.3",
+		"multer": "^1.4.4"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.15"
