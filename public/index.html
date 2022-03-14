@@ -9,19 +9,15 @@
 	</head>
 	<body>
 		<h2>Ingrese el producto deseado:</h2>
-		<form action="/api/products/" method="POST">
+		<form action="/api/products" enctype="multipart/form-data" method="POST">
 			<br />
-			<span style="min-width: 80px; width: 80px; display: inline-block; margin-bottom: 10px"
-				>Titulo:</span
-			><input type="text" name="title" />
+			<span style="min-width: 80px; width: 80px; display: inline-block; margin-bottom: 10px">Titulo:</span><input type="text" name="title" />
 			<br />
-			<span style="min-width: 80px; width: 80px; display: inline-block; margin-bottom: 10px"
-				>Precio:</span
-			><input type="text" name="price" />
+			<span style="min-width: 80px; width: 80px; display: inline-block; margin-bottom: 10px">Precio:</span><input type="text" name="price" />
 			<br />
-			<span style="min-width: 80px; width: 80px; display: inline-block; margin-bottom: 10px"
-				>Categoria:</span
-			><input type="text" name="category" />
+			<span style="min-width: 80px; width: 80px; display: inline-block; margin-bottom: 10px">Categoria:</span><input type="text" name="category" />
+			<br />
+			<input type="file" name="image" />
 			<br />
 			<br />
 			<button>Enviar Peticion</button>
