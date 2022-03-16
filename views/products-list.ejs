@@ -1,0 +1,26 @@
+<header><%- include('./partials/header.ejs') %></header>
+<body>
+	<div class="container mt-3">
+		<div class="jumbotron">
+      <% if(products.length > 0) { %>
+        <div class="table-responsive">
+          <table class="table table-dark">
+            <tr style="color: yellow;"> <th>Title</th> <th>Price</th> <th>Category</th> <th>Image</th> </tr>
+            <% for (const product in products ) { %>
+              <tr>
+                <td> <%= products[product].title %> </td>
+                <td> <%= products[product].price %> </td>
+                <td> <%= products[product].category %></td>
+                <td> <%= products[product].image %></td>
+              </tr>
+            <% } %>
+          </table>
+        </div>
+      <% } else{ %> 
+        <h3 style="color: black">no existen datos</h3>
+      <% }%>
+      <a href='/api/products/form' class="btn btn-primary mt-3 mb-0">Go to Product List</a>
+		</div>
+	</div>
+</body>
+<%- include('./partials/footer.ejs') %>

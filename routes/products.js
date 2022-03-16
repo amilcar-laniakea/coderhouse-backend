@@ -8,9 +8,13 @@ const { response } = require('../functions/response')
 
 const product = new Products([])
 
+routerProducts.get('/form', async (req, res) => {
+		res.render('products-create')
+})
+
 routerProducts.get('/', async (req, res) => {
 	const result = await product.getAll()
-	return res.json(result)
+	return res.render('products-list', { products: result.data } )	
 })
 
 routerProducts.get('/:id', async (req, res) => {
@@ -20,11 +24,10 @@ routerProducts.get('/:id', async (req, res) => {
 
 routerProducts.post('/', uploadImage().single('image'), async (req, res, next) => {
 	const file = req.file
-	if (!file) {
-		return next(res.json(response('400', '', 'error in create product...', 'please upload file')))
-	}
-	const result = await product.save(req)
-	return res.json(result)
+	if (!file) return next(res.render('products-error', {error: 'please upload file'}))
+	result = await product.save(req)
+	if(!result.data) return res.render('products-error', {error: result.error})
+	return res.render('products-create')
 })
 
 routerProducts.put('/:id', uploadImage().single('image'), async (req, res, next) => {

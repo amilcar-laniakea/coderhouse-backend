@@ -23,7 +23,7 @@ class Products {
 				this.products.push(product)
 				return response('200', this.products, 'success...')
 			} else {
-				return response('200', '', 'error in create product...', 'please verify what all fields are filled and correctly typed...')
+				return response('200', null, 'error in create product...', 'please verify what all fields are filled and correctly typed...')
 			}
 		} catch (error) {
 			console.log('error...', error)
