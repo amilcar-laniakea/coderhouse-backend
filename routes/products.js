@@ -22,9 +22,9 @@ routerProducts.get('/:id', async (req, res) => {
 	return res.json(result)
 })
 
-routerProducts.post('/', uploadImage().single('image'), async (req, res, next) => {
+routerProducts.post('/', uploadImage().single('image'), async (req, res) => {
 	const file = req.file
-	if (!file) return next(res.render('products-error', {error: 'please upload file'}))
+	if (!file) return res.render('products-error', {error: 'please upload file'})
 	result = await product.save(req)
 	if(!result.data) return res.render('products-error', {error: result.error})
 	return res.render('products-create')

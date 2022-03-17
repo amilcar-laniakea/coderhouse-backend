@@ -1,6 +1,7 @@
 /** @format */
 
 const express = require('express')
+const handlebars = require('express-handlebars')
 const app = express()
 const PORT = 8080
 
@@ -12,7 +13,15 @@ const server = app.listen(PORT, () => {
 })
 server.on('error', (error) => console.log(`Server has an error: ${error}`))
 
-app.set('view engine', 'ejs')
+app.engine(
+  'hbs',
+  handlebars({
+    extname: '.hbs',
+    defaultLayout: 'index.hbs',
+  })
+)
+app.set('view engine', 'hbs')
+app.set('views', './views')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
