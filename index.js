@@ -12,7 +12,8 @@ const server = app.listen(PORT, () => {
 })
 server.on('error', (error) => console.log(`Server has an error: ${error}`))
 
-app.set('view engine', 'ejs')
+app.set('views', './views')
+app.set('view engine', 'pug')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())

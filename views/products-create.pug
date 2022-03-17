@@ -1,0 +1,18 @@
+body
+  form(action='/api/products', enctype="multipart/form-data", method='POST')
+    h1='Ingrese un Producto'
+    p
+      |          Title: 
+      input(type='text', name='title')
+      |          Price: 
+      input(type='number', name='price')
+      |          Category: 
+      input(type='text', name='category')
+      |          Image: 
+      input(type="file", name="image")
+    br
+    input(type='submit', value='Submit')
+    br
+    br
+    br   
+    a(href='/api/products')='Go to product list'

@@ -1,0 +1,20 @@
+body
+  form(action='/api/products', enctype="multipart/form-data", method='POST')
+    h1='Lista de productos:'
+    if products.length > 0 
+      table
+          tr 
+            th='Title'
+            th='Price'
+            th='Category'
+            th='Image'
+          each product in products 
+            tr
+              td=product.title                
+              td=product.price
+              td=product.category
+              td=product.image
+    else 
+      h1='No existen productos'
+    br
+    a(href='/api/products/form')='Go to product create'
