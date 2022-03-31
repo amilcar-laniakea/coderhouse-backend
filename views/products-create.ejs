@@ -1,10 +1,12 @@
-<header><%- include('./partials/header.ejs') %></header>
+<!-- @format -->
+
+<header><%- include('./partials/header-create.ejs') %></header>
 <body>
 	<div class="container mt-3">
-		<div class="jumbotron">
+		<div class="jumbotron" style="padding: 10px 30px !important">
 			<h1 style="color: blue">Ingrese datos del producto:</h1>
 			<br />
-			<form action="/api/products" enctype="multipart/form-data" method="post">
+			<form onsubmit="return addProduct(this)" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="title"><b>Title:</b></label>
 					<input id="title" class="form-control" type="text" name="title" />
@@ -17,13 +19,33 @@
 					<label for="category"><b>Category:</b></label>
 					<input id="category" class="form-control" type="text" name="category" />
 				</div>
-        	<div class="form-group">
+				<div class="form-group">
 					<label for="file"><b>Image:</b></label>
-          <input id="file" type="file" class="form-control" name="image" />
+					<input id="file" type="file" class="form-control" name="file" />
 				</div>
-				<button class="btn btn-success mt-3 mb-5">Enviar</button>
-        <br/>   
-        <a href='/api/products' class="btn btn-primary mt-3 mb-0">Go to Product List</a>
+				<input class="btn btn-success" type="submit" value="Add Product" />
+			</form>
+			<hr />
+			<div id="products"></div>
+		</div>
+	</div>
+	<div class="container mt-3">
+		<div class="jumbotron" style="padding: 10px 30px !important">
+			<h1 style="color: blue">Messaje Center:</h1>
+			<br />
+			<form onsubmit="return addMessaje(this)">
+				<div class="form-group">
+					<label for="email"><b>Email o Nombre:</b></label>
+					<input id="email" class="form-control" type="text" name="email" style="max-width: 270px" />
+				</div>
+				<div id="mensajes"></div>
+				<div class="form-group">
+					<label for="messaje"><b>Messaje:</b></label>
+					<div style="display: flex; align-items: center">
+						<input id="messaje" class="form-control" type="text" name="messaje" style="max-width: 200px; margin-right: 10px" />
+						<input class="btn btn-primary" type="submit" value="Send Messaje" />
+					</div>
+				</div>
 			</form>
 		</div>
 	</div>

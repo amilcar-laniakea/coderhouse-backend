@@ -1,11 +1,11 @@
 {
 	"name": "service-advanced-express",
 	"version": "1.0.0",
-	"description": "coderhouse-desafio-4",
+	"description": "coderhouse-desafio-websockets",
 	"main": "index.js",
 	"scripts": {
-		"start:dev": "nodemon server.js",
-		"start": "node server.js"
+		"start:dev": "nodemon index.js",
+		"start": "node index.js"
 	},
 	"author": "Amilcar barahona",
 	"license": "ISC",
@@ -16,7 +16,8 @@
 	"dependencies": {
 		"ejs": "^3.1.6",
 		"express": "^4.17.3",
-		"multer": "^1.4.4"
+		"multer": "^1.4.4",
+		"socket.io": "^4.4.1"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.15"

@@ -1,5 +1,6 @@
 /** @format */
 const express = require('express')
+
 const routerProducts = express.Router()
 
 const { Products } = require('../class/products')
@@ -9,12 +10,12 @@ const { response } = require('../functions/response')
 const product = new Products([])
 
 routerProducts.get('/form', async (req, res) => {
-		res.render('products-create')
+	return res.render('products-create')
 })
 
 routerProducts.get('/', async (req, res) => {
 	const result = await product.getAll()
-	return res.render('products-list', { products: result.data } )	
+	return res.render('products-list', { products: result.data })
 })
 
 routerProducts.get('/:id', async (req, res) => {
@@ -24,9 +25,9 @@ routerProducts.get('/:id', async (req, res) => {
 
 routerProducts.post('/', uploadImage().single('image'), async (req, res, next) => {
 	const file = req.file
-	if (!file) return next(res.render('products-error', {error: 'please upload file'}))
+	if (!file) return next(res.render('products-error', { error: 'please upload file' }))
 	result = await product.save(req)
-	if(!result.data) return res.render('products-error', {error: result.error})
+	if (!result.data) return res.render('products-error', { error: result.error })
 	return res.render('products-create')
 })
 
@@ -44,4 +45,4 @@ routerProducts.delete('/:id', async (req, res) => {
 	return res.json(result)
 })
 
-module.exports = routerProducts
+module.exports = { routerProducts, product }

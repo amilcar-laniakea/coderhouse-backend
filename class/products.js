@@ -31,6 +31,28 @@ class Products {
 		}
 	}
 
+	saveSocket(item) {
+		try {
+			let product = new Product(
+				item.title,
+				parseFloat(item.price),
+				item.category,
+				this.products.length === 0 ? 1 : this.products[this.products.length - 1].id + 1,
+				item.image.replace(/\\/g, '/')
+			)
+			const validateObject = !Object.values(product).some((item) => item === undefined || item === null || item === '')
+			if (validateObject) {
+				this.products.push(product)
+				return response('200', this.products, 'success...')
+			} else {
+				return response('200', null, 'error in create product...', 'please verify what all fields are filled and correctly typed...')
+			}
+		} catch (error) {
+			console.log('error...', error)
+			return response('400', '', 'error in create product...', 'error in function save()...')
+		}
+	}
+
 	getAll() {
 		try {
 			return response('200', this.products, 'success...')
