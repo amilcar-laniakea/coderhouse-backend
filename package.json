@@ -4,8 +4,8 @@
 	"description": "coderhouse-desafio-4",
 	"main": "index.js",
 	"scripts": {
-		"start:dev": "nodemon server.js",
-		"start": "node server.js"
+		"start:dev": "nodemon src/index.js",
+		"start": "node src/index.js"
 	},
 	"author": "Amilcar barahona",
 	"license": "ISC",
@@ -19,6 +19,7 @@
 		"multer": "^1.4.4"
 	},
 	"devDependencies": {
+		"dotenv": "^16.0.0",
 		"nodemon": "^2.0.15"
 	}
 }

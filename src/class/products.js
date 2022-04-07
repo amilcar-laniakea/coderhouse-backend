@@ -33,10 +33,10 @@ class Products {
 
 	getAll() {
 		try {
-			return response('200', this.products, 'success...')
+			return response('200', this.products, this.products?.length > 0 ? 'success...' : 'The list is empty...')
 		} catch (error) {
 			console.log('error...', error)
-			return response('400', '', 'error in read products or not found...', 'error in function getAll()...')
+			return response('400', '', 'error in get products...', 'error in function getAll()...')
 		}
 	}
 
