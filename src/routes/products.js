@@ -5,10 +5,11 @@ const { Products } = require('../class/products')
 const { uploadImage } = require('../functions/uploadImage')
 const { response } = require('../functions/response')
 const { authorizeGlobalAccess, authorizeUserAdmin } = require('../functions/auth')
-const { validateProductObject } = require('../functions/validateProductObject')
+const { validateProductCreate } = require('../functions/validateProductCreate')
+const { validateProductModify } = require('../functions/validateProductModify')
 
 const routerProducts = express.Router()
-const product = new Products([])
+const product = new Products('products.txt')
 
 routerProducts.use(authorizeGlobalAccess)
 
@@ -20,21 +21,17 @@ routerProducts.get('/:id?', async (req, res) => {
 	return res.json(result)
 })
 
-routerProducts.post('/', authorizeUserAdmin, validateProductObject, (req, res) => {
+routerProducts.post('/', authorizeUserAdmin, validateProductCreate, (req, res) => {
 	result = product.save(req.product)
 	return res.json(result)
 })
 
-routerProducts.put('/:id', uploadImage().single('image'), async (req, res, next) => {
-	const file = req.file
-	if (!file) {
-		return next(res.json(response('400', '', 'error in create product...', 'please upload file')))
-	}
+routerProducts.put('/:id', authorizeUserAdmin, validateProductModify, async (req, res) => {
 	const result = await product.updateById(req)
 	return res.json(result)
 })
 
-routerProducts.delete('/:id', async (req, res) => {
+routerProducts.delete('/:id', authorizeUserAdmin, async (req, res) => {
 	const result = await product.deleteById(req.params.id)
 	return res.json(result)
 })

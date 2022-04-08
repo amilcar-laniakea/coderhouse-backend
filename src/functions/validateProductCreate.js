@@ -6,7 +6,7 @@ const path = require('path')
 const { response } = require('./response')
 const { Product } = require('../class/product')
 
-const validateProductObject = (req, res, next) => {
+const validateProductCreate = (req, res, next) => {
 	let imagePath
 	const requiredFields = ['name', 'description', 'price', 'code', 'stock']
 	const options = {
@@ -52,4 +52,4 @@ const validateProductObject = (req, res, next) => {
 	})
 }
 
-module.exports = { validateProductObject }
+module.exports = { validateProductCreate }
