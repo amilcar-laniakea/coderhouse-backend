@@ -1,37 +1,28 @@
 /** @format */
 const express = require('express')
+
 const { Products } = require('../class/products')
 const { uploadImage } = require('../functions/uploadImage')
 const { response } = require('../functions/response')
-const { handleAccess } = require('../functions/auth')
+const { authorizeGlobalAccess, authorizeUserAdmin } = require('../functions/auth')
+const { validateProductObject } = require('../functions/validateProductObject')
 
 const routerProducts = express.Router()
 const product = new Products([])
 
-routerProducts.use(handleAccess)
+routerProducts.use(authorizeGlobalAccess)
 
-routerProducts.get('/form', async (req, res) => {
-	res.render('products-create')
-})
-
-routerProducts.get('/', async (req, res) => {
-	console.log('lol...', req.body.administrator)
-	const result = await product.getAll()
-	//return res.render('products-list', { products: result.data } )
+routerProducts.get('/:id?', async (req, res) => {
+	const id = req.params.id
+	let result
+	if (id) result = await product.getById(req.params.id)
+	else result = await product.getAll()
 	return res.json(result)
 })
 
-routerProducts.get('/:id', async (req, res) => {
-	const result = await product.getById(req.params.id)
+routerProducts.post('/', authorizeUserAdmin, validateProductObject, (req, res) => {
+	result = product.save(req.product)
 	return res.json(result)
-})
-
-routerProducts.post('/', uploadImage().single('image'), async (req, res, next) => {
-	const file = req.file
-	if (!file) return next(res.render('products-error', { error: 'please upload file' }))
-	result = await product.save(req)
-	if (!result.data) return res.render('products-error', { error: result.error })
-	return res.render('products-create')
 })
 
 routerProducts.put('/:id', uploadImage().single('image'), async (req, res, next) => {

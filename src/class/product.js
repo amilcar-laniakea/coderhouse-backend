@@ -1,12 +1,14 @@
 /** @format */
 
 class Product {
-	constructor(title, price, category, id, image) {
-		this.title = title.toString()
+	constructor(name, description, price, code, stock, date, image) {
+		this.name = name ? name.toString() : null
+		this.description = description ? description.toString() : null
 		this.price = isNaN(price) ? undefined : price
-		this.category = category.toString()
-		this.id = isNaN(id) ? undefined : id
-		this.image = image.toString()
+		this.code = code ? code.toString() : null
+		this.stock = isNaN(stock) ? undefined : stock
+		this.date = date ? date : null
+		this.image = image ? image : null
 	}
 }
 module.exports = { Product }

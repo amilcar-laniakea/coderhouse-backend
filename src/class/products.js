@@ -9,24 +9,10 @@ class Products {
 	}
 
 	save(item) {
-		console.log()
 		try {
-			let product = new Product(
-				item.body.title,
-				parseFloat(item.body.price),
-				item.body.category,
-				this.products.length === 0 ? 1 : this.products[this.products.length - 1].id + 1,
-				item.file.path.replace(/\\/g, '/')
-			)
-			const validateObject = !Object.values(product).some((item) => item === undefined || item === null || item === '')
-			if (validateObject) {
-				this.products.push(product)
-				return response('200', this.products, 'success...')
-			} else {
-				return response('200', null, 'error in create product...', 'please verify what all fields are filled and correctly typed...')
-			}
+			this.products.push(item)
+			return response('200', this.products, 'success...', 'product has sucessfull added...')
 		} catch (error) {
-			console.log('error...', error)
 			return response('400', '', 'error in create product...', 'error in function save()...')
 		}
 	}
@@ -35,7 +21,6 @@ class Products {
 		try {
 			return response('200', this.products, this.products?.length > 0 ? 'success...' : 'The list is empty...')
 		} catch (error) {
-			console.log('error...', error)
 			return response('400', '', 'error in get products...', 'error in function getAll()...')
 		}
 	}
